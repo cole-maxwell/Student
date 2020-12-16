@@ -1,49 +1,44 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   To run this build script, type: 
 
-  ant -f hw04.xml
+  ant -f build.xml
 
-  on a shell. 
+  in a shell. 
 -->
 
-<project name="hw04" basedir="."  default="clean">
+<project name="hw_04" basedir="."  default="clean">
+
 	<property environment="env"/>
-	<echo message="JUNIT_HOME: ${env.JUNIT_HOME}" />
-	<echo message="ANT_HOME: ${env.ANT_HOME}" />
-	
-	<property name="src" location="src" />
+    <property name="src" location="src" />
 	<property name="bin" location="bin" />
 	<property name="test.src" location="test/src" />
 	<property name="test.bin" location="test/bin" />
 	<property name="test.reports" location="test/reports" />
-	
-	<path id="classpath">
+
+    <path id="classpath">
 		<pathelement location="bin" />
 		<pathelement location="test/bin" />
-		<fileset dir="${env.JUNIT}" includes="org.junit.*.jar" excludes="org.junit.vintage.*.jar" />
-		<fileset dir="${env.JUNIT}" includes="org.opentest4j*.jar" />
-		<fileset dir="${env.JUNIT}" includes="org.apiguardian*.jar" />
+		<fileset dir="${env.JUNIT}" includes="*.jar" excludes="junit.vintage.*.jar" />
 	</path>
-	<echo message="${toString:classpath}" />
-	
+
 	<target name="init">
-		<mkdir dir="${bin}"/>
+        <mkdir dir="${bin}"/>
 		<mkdir dir="${test.bin}"/>
 		<mkdir dir="${test.reports}"/>
 	</target>
 	
 	<target name="compile" depends="init">
-		<javac srcdir="${src}" destdir="${bin}" includeAntRuntime="no">
-			<classpath refid="classpath"/>
+		<javac srcdir="${src}" destdir="${bin}" includeAntRuntime="false">
+            <classpath refid="classpath"/>	
 			<include name="edu/umb/cs680/hw04/Student.java"/>
 		</javac>
-		<javac srcdir="${test.src}" destdir="${test.bin}" includeAntRuntime="yes">
-          	<classpath refid="classpath"/>
+		<javac srcdir="${test.src}" destdir="${test.bin}" includeAntRuntime="false">
+            <classpath refid="classpath"/>	
 			<include name="edu/umb/cs680/hw04/StudentTest.java"/>
-        </javac>
+		</javac>
 	</target>
-					
+
 	<target name="run" depends="compile">
 		<java classname="edu.umb.cs680.hw04.Student"
 				classpathref="classpath"  
@@ -51,18 +46,26 @@
 		<junitlauncher printSummary="true">
 			<classpath refid="classpath" />
 			<testclasses outputdir="${test.reports}">
-				<fileset dir="${test.bin}">
+				<fileset dir="${test.bin}">	
 					<include name="edu/umb/cs680/hw04/*Test.class"/>
 				</fileset>
 				<listener type="legacy-plain" sendSysOut="true"/>
 			</testclasses>
 		</junitlauncher>
 	</target>
-	
+
 	<target name="clean" depends="run">
 		<delete includeemptydirs="true">
 			<fileset dir="${bin}/edu/umb/cs680/hw04" includes="**/*"/>
 			<fileset dir="${test.bin}/edu/umb/cs680/hw04" includes="**/*" />
+		</delete>
+	</target>
+
+	<target name="reset">
+		<delete includeemptydirs="true">
+			<fileset dir="${bin}"/>
+			<fileset dir="${test.bin}"/>
+			<fileset dir="${test.reports}"/>
 		</delete>
 	</target>
 
