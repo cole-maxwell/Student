@@ -1,8 +1,8 @@
-# Calculator
+# Student
 ---- Program Description ----<br />
 
-Calculator.java multiplies and divides.<br />
-CalculatorTest.java tests Calculator's methods using JUnit.<br />
+Student.java uses Static Factory Methods to create Student objects of Enum type InStateStudent, OutStateStudent, or IntlStudent.<br />
+StudentTest.java tests Student's methods using JUnit.<br />
 
 ---- Compile & Run ----<br />
 
