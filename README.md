@@ -6,7 +6,7 @@ StudentTest.java tests Student's methods using JUnit.<br />
 
 ---- Compile & Run ----<br />
 
-**_cd_** to **_/Student_** and type **_ant -f build.xml_**.<br />
+Clone the repo, **_cd_** to **_/Student_** and type **_ant -f build.xml_**.<br />
 
 ---- Prerequisite Steps & Environment Setup ----<br />
 
